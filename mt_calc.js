@@ -5,8 +5,8 @@
    Tutorial 11
    Case Problem 2
 
-   Author: 
-   Date:   
+   Author: Todd Adcox Jr
+   Date:   3-15-19   
    
    Filename: mt_calc.js
 	
@@ -33,7 +33,17 @@
 
 */
 
+// 4.Init() function sets up the event handlers for the page.
+// a. Declare the calcbuttons variable containing the collection of page elements belonging to the calcButton class.
+// b. Loop through the calcButtons object collection and, for each button in that collection, run the buttonClick() function in response to the click event.
+// c. After the for loop, add a command that runs the calcKeys() function in response to the key- down event occurring within the element with the ID “calcWindow”.
+function init() {
+   var calcButtons = document.getElementsByClassName("calcButton");
 
+   for (var i = 0; i < array.length; i++) {
+      
+   }
+}
 
 
 
