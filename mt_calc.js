@@ -38,31 +38,58 @@
 // b. Loop through the calcButtons object collection and, for each button in that collection, run the buttonClick() function in response to the click event.
 // c. After the for loop, add a command that runs the calcKeys() function in response to the key- down event occurring within the element with the ID “calcWindow”.
 function init() {
-   var calcButtons = document.getElementsByClassName("calcButton");
+      var calcButtons = document.getElementsByClassName("calcButton");
 
-   for (var i = 0; i < array.length; i++) {
-      
-   }
+      for (var i = 0; i < calcButtons; i++) {
+            document.addEventListener("click", buttonClick);
+      }
+      document.getElementById(calcWindow).addEventListener("keydown", calcKeys);
 }
 
+// 5. Create the buttonClick() function. The purpose of this function is to change what appears in the calculator window when the user clicks the calculator buttons. Add the following commands to the function: 
+// a. Declare the calcvalue variable equal to the value attribute of the calcWindow text area box. 
+// b. Declare the calcDecimal variable equal to the value attribute of the decimals input box.
+// c. Each calculator button has a value attribute that defines what should be done with that button. Declare the buttonvalue attribute equal to the value attribute of the event object target.
+// d. Create a switch-case structure for the following possible values of the buttonValue variable:
+// Create a switch-case structure for the following possible values of the buttonValue variable: 
+// i.	For “del”, delete the contents of the calculate window by changing calcValue to an empty
+// text string.
+// ii.	For “bksp”, erase the last character in the calculator window by changing calcValue to the value returned by the eraseChar() function using calcValue as the parameter value.
+// iii.	For “enter”, calculate the value of the current expression by changing calcValue to:
+// “ = “ + evalEq(calcValue, calcDecimal) + “\n” Note that \n is used to add a line return at the end of the answer.
+// iv.	For “prev”, copy the last equation in the calculator window by changing calcValue to the value returned by the lastEq() function using calcValue as the parameter value.
+// v.	Otherwise, append the calculator button character to the calculator window by letting, calcValue equal calcValue plus buttonValue.
+function buttonClick(e) {
+      var calcValue = document.getElementById("calcWindow");
+      var calcDecimal = document.getElementById("decimals").value;
+      var buttonValue = e.target.value;
+      switch (buttonValue) {
+            case "puzzle1":
+                  document.getElementById("puzzle").innerHTML = drawPuzzle(puzzle1Hint, puzzle1Rating, puzzle1);
+                  break;
+            case "puzzle2":
+                  document.getElementById("puzzle").innerHTML = drawPuzzle(puzzle2Hint, puzzle2Rating, puzzle2);
+                  break;
+            case "puzzle3":
+                  document.getElementById("puzzle").innerHTML = drawPuzzle(puzzle3Hint, puzzle3Rating, puzzle3);
+                  break;
+      }
 
+      /* ===================================================================== */
 
+      function eraseChar(textStr) {
+            return textStr.substr(0, textStr.length - 1);
+      }
 
-/* ===================================================================== */
+      function evalEq(textStr, decimals) {
+            var lines = textStr.split(/\r?\n/);
+            var lastLine = lines[lines.length - 1];
+            var eqValue = eval(lastLine);
+            return eqValue.toFixed(decimals);
+      }
 
-function eraseChar(textStr) { 
-   return textStr.substr(0, textStr.length - 1);
-}
-
-function evalEq(textStr, decimals) {
-   var lines = textStr.split(/\r?\n/);
-   var lastLine = lines[lines.length-1];
-   var eqValue = eval(lastLine);
-   return eqValue.toFixed(decimals);
-}  
-
-function lastEq(textStr) {
-   var lines = textStr.split(/\r?\n/);
-   var lastExp = lines[lines.length-2];
-   return lastExp.substr(0, lastExp.indexOf("=")).trim();
-}
+      function lastEq(textStr) {
+            var lines = textStr.split(/\r?\n/);
+            var lastExp = lines[lines.length - 2];
+            return lastExp.substr(0, lastExp.indexOf("=")).trim();
+      }
