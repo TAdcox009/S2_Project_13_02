@@ -64,32 +64,39 @@ function buttonClick(e) {
       var calcDecimal = document.getElementById("decimals").value;
       var buttonValue = e.target.value;
       switch (buttonValue) {
-            case "puzzle1":
-                  document.getElementById("puzzle").innerHTML = drawPuzzle(puzzle1Hint, puzzle1Rating, puzzle1);
+            case "del":
+                  calcValue += "";
                   break;
-            case "puzzle2":
-                  document.getElementById("puzzle").innerHTML = drawPuzzle(puzzle2Hint, puzzle2Rating, puzzle2);
+            case "bksp":
+                  calcValue += eraseChar(calcValue)
                   break;
-            case "puzzle3":
-                  document.getElementById("puzzle").innerHTML = drawPuzzle(puzzle3Hint, puzzle3Rating, puzzle3);
+            case "enter":
+                  "=" + evalEq(calcValue);
+                  break;
+            case "prev":
+                  calcValue += lastEq(calcValue);
+                  break;
+            case "":
+                  calcValue += calcValue + buttonValue;
                   break;
       }
+}
 
-      /* ===================================================================== */
+/* ===================================================================== */
 
-      function eraseChar(textStr) {
-            return textStr.substr(0, textStr.length - 1);
-      }
+function eraseChar(textStr) {
+      return textStr.substr(0, textStr.length - 1);
+}
 
-      function evalEq(textStr, decimals) {
-            var lines = textStr.split(/\r?\n/);
-            var lastLine = lines[lines.length - 1];
-            var eqValue = eval(lastLine);
-            return eqValue.toFixed(decimals);
-      }
+function evalEq(textStr, decimals) {
+      var lines = textStr.split(/\r?\n/);
+      var lastLine = lines[lines.length - 1];
+      var eqValue = eval(lastLine);
+      return eqValue.toFixed(decimals);
+}
 
-      function lastEq(textStr) {
-            var lines = textStr.split(/\r?\n/);
-            var lastExp = lines[lines.length - 2];
-            return lastExp.substr(0, lastExp.indexOf("=")).trim();
-      }
+function lastEq(textStr) {
+      var lines = textStr.split(/\r?\n/);
+      var lastExp = lines[lines.length - 2];
+      return lastExp.substr(0, lastExp.indexOf("=")).trim();
+}
